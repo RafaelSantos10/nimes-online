@@ -2,6 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import NavbarH from "./components/Navbar";
@@ -21,6 +22,7 @@ function App() {
       <GlobalStorage>
         <BrowserRouter>
           <header>
+            <SpeedInsights/>
             <Container>
               <Row>
                 <Col lg={12}>
