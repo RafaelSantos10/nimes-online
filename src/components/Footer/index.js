@@ -17,17 +17,17 @@ function Footer() {
               <a href="https://www.instagram.com/raffa_snts_/" target="_blank" className={styles.logosSocial} style={{ marginLeft:"5px" }}>
                 {<SiInstagram />}
               </a>
-              <a href="https://www.linkedin.com/in/rafael-santos-17834a20b/" target="_blank" className={styles.logosSocial} style={{ margin:"0 .5rem"}}>
+              <a href="https://www.linkedin.com/in/rafael-santos-065794293/" target="_blank" className={styles.logosSocial} style={{ margin:"0 .5rem"}}>
                 {<SiLinkedin />}
               </a>
-              <a href="https://github.com/white-sx" target="_blank" className={styles.logosSocial} >
+              <a href="https://github.com/RafaelSantos1" target="_blank" className={styles.logosSocial} >
                 {<SiGithub />}
               </a>
             </div>
             <div>
               {" "}
               <p className={styles.pCopy}>
-                Nimes online &copy; 2023
+                Nimes online &copy; 2024
               </p>
             </div>
           </div>
