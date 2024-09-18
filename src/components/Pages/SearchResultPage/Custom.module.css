@@ -1,0 +1,32 @@
+.containerResult {
+  margin-top: 3rem;
+}
+
+.containerResult div h5 {
+  color: #fff;
+}
+
+.containerResult div h5 span {
+  color: red;
+}
+
+.containerErrorImg {
+  margin: auto;
+  display: block;
+}
+
+.linkCustom {
+  text-decoration: none;
+  color: #f2f2f2;
+}
+
+.cardCustom {
+  width: 100%;
+  height: 95%;
+  background-color: #1f221f;
+}
+
+.cardCustomTitle {
+  font-size: 0.9rem;
+  width: 100%;
+}

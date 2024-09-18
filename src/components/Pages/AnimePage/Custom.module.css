@@ -1,0 +1,39 @@
+h4 {
+  font-size: 1.2rem;
+}
+
+.containerMain {
+  margin-top: 8rem;
+  color: #fff;
+  border-bottom: 3px solid #fad82d;
+  padding-bottom: 1rem;
+}
+
+.animeTitle {
+  margin-top: 0.9rem;
+}
+
+.animeTitle h1 {
+  color: #fad82d;
+}
+
+.animeTitle span {
+  font-size: 0.875rem;
+  color: rgb(160, 160, 160);
+  display: block;
+  margin-top: -10px;
+}
+
+.animeTitle div {
+  margin-top: 1rem;
+  border-top: 1px solid rgb(76 76 76);
+  padding: 5px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.linkStyle {
+  margin-top: 1rem;
+  display: block;
+  text-decoration: none;
+}

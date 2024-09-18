@@ -1,0 +1,60 @@
+.navLog {
+  max-width: 150px;
+}
+
+.navLogMobile {
+  max-width: 80px;
+}
+
+.backNav {
+  color: #fff;
+  background: #1f221f;
+  max-width: 90%;
+}
+
+.navButton {
+  border: none;
+  background: #fad82d;
+}
+
+.menuMobile {
+  margin: 2rem auto;
+  font-size: 1.3rem;
+}
+
+.fixBottom {
+  margin-top: 1rem;
+}
+
+.footerText {
+  display: initial;
+  position: absolute;
+  bottom: 0;
+  left: 1.2rem;
+  width: 100%;
+  left: 58%;
+  transform: translate(-50%, -50%);
+}
+
+.footerText p {
+  color: #ccc;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+@media (min-width: 992px) {
+  .backNav {
+    background: initial !important;
+  }
+  .menuMobile {
+    margin: initial;
+    font-size: initial;
+    margin: initial;
+  }
+  .fixBottom {
+    margin-top: initial;
+  }
+  .footerText {
+    display: none;
+  }
+}

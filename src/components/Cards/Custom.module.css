@@ -1,0 +1,10 @@
+.cardsCustom {
+  width: 100%;
+  height: 95%;
+  background-color: #1f221f;
+}
+
+.cardTitleCustom {
+  font-size: 0.9rem;
+  width: 100%;
+}

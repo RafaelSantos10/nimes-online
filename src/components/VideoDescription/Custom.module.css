@@ -1,0 +1,34 @@
+.ContainerMain {
+  color: white;
+  margin-top: 1rem;
+}
+
+.ContainerMain h2{
+    font-size: 1.375rem;
+}
+
+.ContainerMain h3{
+    font-size: .875rem;
+    color: #a0a0a0;
+}
+
+.ContainerMain p{
+    text-align: justify;
+}
+
+.splitContainer {
+  display: flex;
+  align-items: center;
+}
+
+.rightContainer{
+    margin-Right: 5px;
+    border-Right: 1px solid #ccc;
+    padding-Right: 6px;
+}
+
+.rightContainerText{
+    color: #FAD82D;
+    font-size: 1rem;
+    text-transform: capitalize;
+}

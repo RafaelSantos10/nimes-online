@@ -1,0 +1,16 @@
+.ButtonGroupCustom {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.linkCustom {
+  color: #6c757d;
+  text-decoration: none;
+  margin: 0px 4px;
+  font-size: 0.9rem;
+}
+
+.buttonCustom {
+  height: 100%;
+  border-radius: 0px;
+}

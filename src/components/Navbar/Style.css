@@ -1,0 +1,39 @@
+.offcanvas-body {
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: #ccc;
+}
+
+a:hover {
+  cursor: pointer;
+  color: #f2f2f2;
+}
+
+li {
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+a.active {
+  border-bottom: 2px solid rgb(250 216 45);
+}
+
+
+@media (min-width: 992px) {
+  .backNav {
+    background: initial !important;
+  }
+  .menuMobile {
+    margin: initial;
+    font-size: initial;
+    margin: initial;
+  }
+  .fixBottom {
+    margin-top: initial;
+  }
+  
+    
+}
