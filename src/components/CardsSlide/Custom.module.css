@@ -1,5 +1,6 @@
 .sliderCustom{
     margin-left: .4rem;
+    margin-top: 1.9rem;
 }
 
 .linkCustom{
@@ -9,8 +10,19 @@
 
 .cardCustom{
     width: 90%;
+    text-wrap: nowrap;
+    overflow: hidden;
+    padding: 5px;
+    margin: 0 10px;
 }
 
 .cardTitleCustom{
     font-size: .9rem;
+}
+
+@media screen and (max-width: 425px) {
+    .sliderCustom{
+       
+        margin-top: 0.9rem;
+    }
 }

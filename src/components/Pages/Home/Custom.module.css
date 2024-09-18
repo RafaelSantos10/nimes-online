@@ -1,9 +1,16 @@
 .containerTop {
-  margin-top: 1rem;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
 }
 
 .containerLine {
   border-top: 3px solid #fad82d;
   padding: 5px 0px;
   margin-top: 0.5rem;
+}
+
+@media screen and (max-width: 425px){
+  .containerTop {
+    margin-bottom: 1rem;
+  }
 }

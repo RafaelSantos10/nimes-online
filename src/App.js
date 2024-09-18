@@ -41,8 +41,10 @@ function App() {
           </main>
         </BrowserRouter>
       </GlobalStorage>
-     
+     <footer>
         <Footer />
+
+     </footer>
      
     </>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import useFetch from "../Api/useFetch";
 import Card from "react-bootstrap/Card";
+import CardGroup from 'react-bootstrap/CardGroup';
 import Col from "react-bootstrap/Col";
 import { Ratio } from "react-bootstrap";
 import Slider from "react-slick";
@@ -13,7 +14,7 @@ function CardsSlide() {
   const Global = React.useContext(GlobalContext);
 
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
@@ -76,7 +77,8 @@ function CardsSlide() {
                   localStorage.setItem("ImageLocalId", data.category_image);
                 }}
               >
-                <Card className={styles.cardCustom} bg="dark" variant="dark">
+                <CardGroup>
+                 <Card className={styles.cardCustom}  bg="dark" variant="dark">
                   <Ratio aspectRatio="1x1">
                     <Card.Img
                       src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
@@ -87,7 +89,8 @@ function CardsSlide() {
                       {data.category_name}
                     </Card.Title>
                   </Card.Body>
-                </Card>
+                 </Card>
+                </CardGroup>
               </Link>
             </Col>
           ))}
