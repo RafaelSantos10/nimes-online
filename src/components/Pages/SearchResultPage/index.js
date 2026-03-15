@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { Container, Figure, Ratio, Row } from "react-bootstrap";
@@ -10,9 +10,11 @@ import styles from "./Custom.module.css";
 
 function SearchResultPage() {
   const Global = React.useContext(GlobalContext);
-  const { request, data, loading, error, setError } = useFetch();
+  const { request, data, loading, error } = useFetch();
 
   React.useEffect(() => {
+    if (!Global.animeNameFormattedSearch) return;
+
     request(
       `https://appanimeplus.tk/play-api.php?search=${Global.animeNameFormattedSearch}`,
       {
@@ -22,86 +24,82 @@ function SearchResultPage() {
         },
       }
     );
-  }, [Global.animeNameFormattedSearch]);
+  }, [Global.animeNameFormattedSearch, request]);
 
-  if (data || error)
-    return (
-      <>
-        <Container style={{ marginTop: "7rem" }}>
+  if (!Global.animeNameFormattedSearch) return null;
+
+  return (
+    <>
+      <Container style={{ marginTop: "7rem" }}>
+        <Row>
+          <Col>
+            <h1 style={{ color: "#FAD82D" }}>Resultados para a busca:</h1>
+          </Col>
+        </Row>
+      </Container>
+
+      {loading ? (
+        <Container className={styles.containerResult}>
+          <SpinnerComponent />
+        </Container>
+      ) : error ? (
+        <Container className={styles.containerResult}>
+          <Figure>
+            <Figure.Image
+              width={342}
+              height={360}
+              alt="Sem resultados"
+              src={imageError}
+              className={styles.containerErrorImg}
+            />
+          </Figure>
+          <div>
+            <h5>
+              Nenhum resultado encontrado para{" "}
+              <span>{`"${Global.animeNameFormattedSearch}"`}</span>, verifique o
+              nome digitado e tente novamente.
+            </h5>
+          </div>
+        </Container>
+      ) : (
+        <Container className={styles.containerResult}>
           <Row>
-            <Col>
-              <h1 style={{ color: "#FAD82D" }}>Resultados para a busca:</h1>
-            </Col>
+            {Array.isArray(data) &&
+              data.map((data, index) => (
+                <Col key={index} xs={6} md={2}>
+                  <a
+                    href="/anime"
+                    className={styles.linkCustom}
+                    onClick={function () {
+                      Global.setAnimeId(data.id);
+                      localStorage.setItem("localAnimeId", data.id);
+                      Global.setAnimeTitle(data.category_name);
+                      localStorage.setItem("LocalAnimeTitle", data.category_name);
+                      Global.setIdImage(data.category_image);
+                      localStorage.setItem("ImageLocalId", data.category_image);
+                    }}
+                  >
+                    <Card className={styles.cardCustom} variant="dark">
+                      <Ratio aspectRatio="1x1">
+                        <Card.Img
+                          src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
+                          alt={data.category_name}
+                        />
+                      </Ratio>
+                      <Card.Body>
+                        <Card.Title className={styles.cardCustomTitle}>
+                          {data.category_name}
+                        </Card.Title>
+                      </Card.Body>
+                    </Card>
+                  </a>
+                </Col>
+              ))}
           </Row>
         </Container>
-
-        {error ? (
-          <Container className={styles.containerResult}>
-            <Figure>
-              <Figure.Image
-                width={342}
-                height={360}
-                alt="342x360"
-                src={imageError}
-                className={styles.containerErrorImg}
-              />
-            </Figure>
-            <div>
-              <h5>
-                {" "}
-                Nenhum resultado encontrado para{" "}
-                <span>{`"${Global.animeNameFormattedSearch}"`}</span>, verifique
-                o nome digitado e tente novamente.
-              </h5>
-            </div>
-          </Container>
-        ) : (
-          <Container className={styles.containerResult}>
-            <Row>
-              {loading ? (
-                <SpinnerComponent />
-              ) : (
-                data.map((data, index) => (
-                  <Col key={index} xs={6} md={2}>
-                    <a
-                      href={"/anime"}
-                      className={styles.linkCustom}
-                      onClick={function (e) {
-                        Global.setAnimeId(data.id);
-                        localStorage.setItem("localAnimeId", data.id);
-                        Global.setAnimeTitle(data.category_name);
-                        localStorage.setItem(
-                          "LocalAnimeTitle",
-                          data.category_name
-                        );
-                        Global.setIdImage(data.category_image);
-                        localStorage.setItem(
-                          "ImageLocalId",
-                          data.category_image
-                        );
-                      }}
-                    >
-                      <Card className={styles.cardCustom} variant="dark">
-                        <Ratio aspectRatio="1x1">
-                          <Card.Img
-                            src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
-                          />
-                        </Ratio>
-                        <Card.Body>
-                          <Card.Title className={styles.cardCustomTitle}>
-                            {data.category_name}
-                          </Card.Title>
-                        </Card.Body>
-                      </Card>
-                    </a>
-                  </Col>
-                ))
-              )}
-            </Row>
-          </Container>
-        )}
-      </>
-    );
+      )}
+    </>
+  );
 }
 
 export default SearchResultPage;
