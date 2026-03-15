@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import { Ratio } from "react-bootstrap";
@@ -10,27 +10,25 @@ import styles from "./Custom.module.css";
 function Cards() {
   const Global = React.useContext(GlobalContext);
 
-  if (Global.data === null &&  Global.loading === null)  return null;
+  if (Global.data === null && Global.loading === null) return null;
+  if (Global.loading) return <SpinnerComponent />;
+  if (!Array.isArray(Global.data) || Global.data.length === 0) return null;
+
   return (
     <>
-    {
-      Global.loading ? <SpinnerComponent/> :  Global.data.map((data, index) => (
+      {Global.data.map((data, index) => (
         <Col key={index} xs={6} md={2}>
           <Link
-           to="video"
+            to="video"
             style={{ textDecoration: "none", color: "#f2f2f2" }}
-            onClick={function (e) {
+            onClick={function () {
               localStorage.setItem("ImageLocalId", data.category_image);
               Global.setEpisodeId(data.video_id);
               Global.setIdImage(data.category_image);
               localStorage.setItem("episodeAnimeIdLocal", data.video_id);
-              
             }}
           >
-            <Card
-              className={styles.cardsCustom}
-              variant="dark"
-            >
+            <Card className={styles.cardsCustom} variant="dark">
               <Ratio aspectRatio="1x1">
                 <Card.Img
                   src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
@@ -46,8 +44,6 @@ function Cards() {
           </Link>
         </Col>
       ))}
-    
-     
     </>
   );
 }

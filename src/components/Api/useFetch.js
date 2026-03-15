@@ -12,9 +12,12 @@ const useFetch = () => {
       setError(null);
       setLoading(true);
       response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
       json = await response.json();
 
-      if (json === null) {
+      if (json === null || (Array.isArray(json) && json.length === 0)) {
         setError("Error");
       }
     } catch (erro) {
