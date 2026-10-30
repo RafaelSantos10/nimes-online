@@ -1,3 +1,4 @@
+import { validId, API_URL } from "../../Api/config";
 import React, { useMemo, useState } from "react";
 import ReactPlayer from "react-player";
 import Container from "react-bootstrap/Container";
@@ -7,7 +8,7 @@ import VideoControl from "../../VideoControl";
 import { GlobalContext } from "../../Api/GlobalContext";
 
 function Video() {
-  const { request, data } = useFetch();
+  const { request, data, error } = useFetch();
   const [link, setLink] = useState();
   const {
     episodeId,
@@ -17,9 +18,10 @@ function Video() {
   } = React.useContext(GlobalContext);
 
   React.useEffect(() => {
-    if (!episodeId) return;
+    setLink(undefined);
+    if (!validId(episodeId)) return;
 
-    request(`https://appanimeplus.tk/play-api.php?episodios=${episodeId}`, {
+    request(`${API_URL}?episodios=${episodeId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +57,7 @@ function Video() {
 
   const animName = useMemo(() => animeNameFormatted || "", [animeNameFormatted]);
 
+  if (error) return <p role="alert" style={{ margin: "8rem 1rem 2rem" }}>{error}</p>;
   if (data === null || link === undefined) return null;
 
   return (

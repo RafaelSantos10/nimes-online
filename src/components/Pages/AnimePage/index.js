@@ -1,3 +1,4 @@
+import { validId, API_URL, IMAGE_URL } from "../../Api/config";
 import React from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -7,13 +8,13 @@ import SpinnerComponent from "../../Spinner";
 import Styles from "./Custom.module.css";
 
 function AnimePage() {
-  const { request, data, loading } = useFetch();
+  const { request, data, loading, error } = useFetch();
   const Global = React.useContext(GlobalContext);
 
   React.useEffect(() => {
-    if (!Global.animeId) return;
+    if (!validId(Global.animeId)) return;
 
-    request(`https://appanimeplus.tk/play-api.php?cat_id=${Global.animeId}`, {
+    request(`${API_URL}?cat_id=${Global.animeId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +22,7 @@ function AnimePage() {
     });
   }, [Global.animeId, request]);
 
+  if (error) return <p role="alert" style={{ margin: "8rem 1rem 2rem" }}>{error}</p>;
   if (Global.genres === null && Global.description === null && loading === null) {
     return null;
   }
@@ -32,7 +34,7 @@ function AnimePage() {
           <Col md="auto">
             <img
               alt={Global.animeTitle}
-              src={`https://cdn.appanimeplus.tk/img/${Global.idImage}`}
+              src={`${IMAGE_URL}/${Global.idImage}`}
             />
           </Col>
           <Col className={Styles.animeTitle}>

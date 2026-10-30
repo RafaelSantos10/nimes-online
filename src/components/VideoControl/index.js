@@ -1,3 +1,4 @@
+import { API_URL, API_ERROR, validId } from "../Api/config";
 import React from "react";
 import { Container } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
@@ -10,36 +11,42 @@ import { GlobalContext } from "../Api/GlobalContext";
 function VideoControl() {
   const Global = React.useContext(GlobalContext);
 
-  function changeEpisode(data) {
-    if (data === null) return null;
-    Global.setEpisodeId(data[0].video_id);
-  }
-  async function nextEpisode() {
-    const responseData = await fetch(
-      `https://appanimeplus.tk/play-api.php?episodios=${Global.episodeId}&catid=${Global.animeId}&next`
-    );
-    const jsonData = await responseData.json();
+  const [error, setError] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
 
-    changeEpisode(jsonData);
-  }
-
-  async function preventEpisode() {
-    const responseData = await fetch(
-      `https://appanimeplus.tk/play-api.php?episodios=${Global.episodeId}&catid=${Global.animeId}&previous`
-    );
-    const jsonData = await responseData.json();
-    changeEpisode(jsonData);
+  async function changeEpisode(direction) {
+    if (!validId(Global.episodeId) || !validId(Global.animeId)) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        `${API_URL}?episodios=${Global.episodeId}&catid=${Global.animeId}&${direction}`
+      );
+      if (!response.ok) throw new Error("Request failed");
+      const data = await response.json();
+      if (!Array.isArray(data) || !data.length || !validId(data[0]?.video_id)) {
+        setError("Nenhum episódio disponível nesta direção.");
+        return;
+      }
+      Global.setEpisodeId(data[0].video_id);
+      localStorage.setItem("episodeAnimeIdLocal", data[0].video_id);
+    } catch (_) {
+      setError(API_ERROR);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <>
       <Container>
+        {error && <p role="alert">{error}</p>}
         <ButtonGroup
           size="lg"
           className={`${styles.ButtonGroupCustom} mb-2`}
         
         >
-          <Button variant="outline-secondary" onClick={preventEpisode}>
+          <Button variant="outline-secondary" disabled={loading} onClick={() => changeEpisode("previous")}>
             <h3>
               <HiArrowSmLeft />
             </h3>
@@ -55,7 +62,7 @@ function VideoControl() {
               Todos os Episódios
             </Button>
           </a>
-          <Button variant="outline-secondary" onClick={nextEpisode}>
+          <Button variant="outline-secondary" disabled={loading} onClick={() => changeEpisode("next")}>
             <h3>
               <HiArrowSmRight />
             </h3>

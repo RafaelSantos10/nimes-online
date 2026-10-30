@@ -1,3 +1,4 @@
+import { API_ERROR } from "./config";
 import React from "react";
 
 const useFetch = () => {
@@ -17,17 +18,16 @@ const useFetch = () => {
       }
       json = await response.json();
 
-      if (json === null || (Array.isArray(json) && json.length === 0)) {
-        setError("Error");
-      }
+      if (json === null) json = [];
+      if (!Array.isArray(json)) throw new Error("Invalid API response");
     } catch (erro) {
       json = null;
-      setError("Error");
+      setError(API_ERROR);
     } finally {
       setData(json);
       setLoading(false);
-      return { response, json };
     }
+    return { response, json };
   }, []);
 
   return { data, setData, error, loading, request, setError };

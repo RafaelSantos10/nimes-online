@@ -1,3 +1,4 @@
+import { IMAGE_URL } from "../Api/config";
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -10,6 +11,7 @@ import styles from "./Custom.module.css";
 function Cards() {
   const Global = React.useContext(GlobalContext);
 
+  if (Global.error) return <p role="alert">{Global.error}</p>;
   if (Global.data === null && Global.loading === null) return null;
   if (Global.loading) return <SpinnerComponent />;
   if (!Array.isArray(Global.data) || Global.data.length === 0) return null;
@@ -31,7 +33,7 @@ function Cards() {
             <Card className={styles.cardsCustom} variant="dark">
               <Ratio aspectRatio="1x1">
                 <Card.Img
-                  src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
+                  src={`${IMAGE_URL}/${data.category_image}`}
                   alt={data.title}
                 />
               </Ratio>

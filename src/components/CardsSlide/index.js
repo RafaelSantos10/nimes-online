@@ -1,3 +1,4 @@
+import { API_URL, IMAGE_URL } from "../Api/config";
 import React from "react";
 import useFetch from "../Api/useFetch";
 import Card from "react-bootstrap/Card";
@@ -11,7 +12,7 @@ import SpinnerComponent from "../Spinner";
 import styles from "./Custom.module.css";
 
 function CardsSlide() {
-  const { request, data, loading } = useFetch();
+  const { request, data, loading, error } = useFetch();
   const Global = React.useContext(GlobalContext);
 
   const settings = {
@@ -50,7 +51,7 @@ function CardsSlide() {
   };
 
   React.useEffect(() => {
-    request("https://appanimeplus.tk/play-api.php?populares", {
+    request(`${API_URL}?populares`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -58,6 +59,7 @@ function CardsSlide() {
     });
   }, [request]);
 
+  if (error) return <p role="alert" style={{ margin: "8rem 1rem 2rem" }}>{error}</p>;
   if (data === null && loading === null) return null;
   if (loading) return <SpinnerComponent />;
   if (!Array.isArray(data) || data.length === 0) return null;
@@ -82,7 +84,7 @@ function CardsSlide() {
               <Card className={styles.cardCustom} bg="dark" variant="dark">
                 <Ratio aspectRatio="1x1">
                   <Card.Img
-                    src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
+                    src={`${IMAGE_URL}/${data.category_image}`}
                     alt={data.category_name}
                   />
                 </Ratio>

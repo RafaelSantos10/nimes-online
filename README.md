@@ -68,3 +68,16 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Deployment e disponibilidade da API
+
+O frontend depende de uma API externa. Falhas de DNS/HTTP são exibidas na interface;
+o deploy do frontend não restaura o serviço externo. Configure `REACT_APP_API_URL`
+(URL completa do endpoint compatível com play-api.php) e `REACT_APP_IMAGE_URL`
+(base das imagens) no ambiente de build. Consulte `.env.example`. Os valores são
+públicos e incorporados ao bundle: nunca coloque segredos nessas variáveis.
+Após alterá-los no Vercel, gere um novo deployment.
+
+Validação em ambiente limpo: `npm ci` e `CI=true npm run build`.
+No Vercel use Create React App, raiz do repositório e saída `build`.
+Mantenha `CI=true` para que avisos de lint não sejam publicados.

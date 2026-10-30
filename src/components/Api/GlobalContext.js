@@ -1,3 +1,4 @@
+import { validId, API_URL } from "./config";
 import React, { useState } from "react";
 import useFetch from "./useFetch";
 
@@ -23,13 +24,13 @@ export const GlobalStorage = ({ children }) => {
     localStorage.getItem("animeSearchName")
   );
   const [animeNameFormatted, setAnimeNameFormatted] = useState();
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState(localStorage.getItem("localCategory"));
   const [animeReleaseYear, setAnimeReleaseYear] = useState(
     localStorage.getItem("LocalAnimeReleaseYear") || ""
   );
 
   React.useEffect(() => {
-    request("https://appanimeplus.tk/play-api.php?latest", {
+    request(`${API_URL}?latest`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +44,7 @@ export const GlobalStorage = ({ children }) => {
 
       try {
         const response = await fetch(
-          `https://appanimeplus.tk/play-api.php?search=${animeNameFormatted}`
+          `${API_URL}?search=${animeNameFormatted}`
         );
         if (!response.ok) return;
 
@@ -62,11 +63,11 @@ export const GlobalStorage = ({ children }) => {
 
   React.useEffect(() => {
     async function setInfosDesc() {
-      if (!animeId) return;
+      if (!validId(animeId)) return;
 
       try {
         const response = await fetch(
-          `https://appanimeplus.tk/play-api.php?info=${animeId}`
+          `${API_URL}?info=${animeId}`
         );
         if (!response.ok) return;
 

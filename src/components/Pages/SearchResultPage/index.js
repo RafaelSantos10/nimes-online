@@ -1,3 +1,4 @@
+import { API_URL, IMAGE_URL } from "../../Api/config";
 import React from "react";
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
@@ -16,7 +17,7 @@ function SearchResultPage() {
     if (!Global.animeNameFormattedSearch) return;
 
     request(
-      `https://appanimeplus.tk/play-api.php?search=${Global.animeNameFormattedSearch}`,
+      `${API_URL}?search=${Global.animeNameFormattedSearch}`,
       {
         method: "GET",
         headers: {
@@ -42,7 +43,7 @@ function SearchResultPage() {
         <Container className={styles.containerResult}>
           <SpinnerComponent />
         </Container>
-      ) : error ? (
+      ) : error || (Array.isArray(data) && data.length === 0) ? (
         <Container className={styles.containerResult}>
           <Figure>
             <Figure.Image
@@ -55,9 +56,7 @@ function SearchResultPage() {
           </Figure>
           <div>
             <h5>
-              Nenhum resultado encontrado para{" "}
-              <span>{`"${Global.animeNameFormattedSearch}"`}</span>, verifique o
-              nome digitado e tente novamente.
+              {error || `Nenhum resultado encontrado para "${Global.animeNameFormattedSearch}".`}
             </h5>
           </div>
         </Container>
@@ -82,7 +81,7 @@ function SearchResultPage() {
                     <Card className={styles.cardCustom} variant="dark">
                       <Ratio aspectRatio="1x1">
                         <Card.Img
-                          src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
+                          src={`${IMAGE_URL}/${data.category_image}`}
                           alt={data.category_name}
                         />
                       </Ratio>

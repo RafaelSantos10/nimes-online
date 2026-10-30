@@ -38,7 +38,7 @@ function NavbarH() {
         <Container fluid>
           <Navbar.Brand>
             <a href="/">
-              <img className={styles.navLog} src={Logo} />
+              <img className={styles.navLog} src={Logo} alt="Nimes Online" />
             </a>
           </Navbar.Brand>
 
@@ -51,7 +51,7 @@ function NavbarH() {
           >
             <Offcanvas.Header closeButton closeVariant="white">
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-xll`}>
-                <img className={styles.navLogMobile} src={LogoNav} />
+                <img className={styles.navLogMobile} src={LogoNav} alt="Nimes Online" />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <div className={styles.menuMobile}>
@@ -60,7 +60,7 @@ function NavbarH() {
                   <NavLink to="/">
                     <li
                       onClick={() => {
-                        if (navMenu.classList.contains("show")) {
+                        if (navMenu && navMenu.classList.contains("show")) {
                           navMenu.classList.remove("show");
                         }
                       }}
@@ -73,7 +73,7 @@ function NavbarH() {
                       onClick={() => {
                         Global.setCategory("filme");
                         localStorage.setItem("localCategory", "filme");
-                        if (navMenu.classList.contains("show")) {
+                        if (navMenu && navMenu.classList.contains("show")) {
                           navMenu.classList.remove("show");
                         }
                       }}
@@ -86,7 +86,7 @@ function NavbarH() {
                       onClick={() => {
                         Global.setCategory("dublado");
                         localStorage.setItem("localCategory", "dublado");
-                        if (navMenu.classList.contains("show")) {
+                        if (navMenu && navMenu.classList.contains("show")) {
                           navMenu.classList.remove("show");
                         }
                       }}
@@ -115,7 +115,7 @@ function NavbarH() {
                     className="text-white"
                     onClick={onSearchAnime}
                   >
-                    <img src={Icon} />
+                    <img src={Icon} alt="Buscar" />
                   </Button>
                 </Form>
                 <div className={styles.footerText}>

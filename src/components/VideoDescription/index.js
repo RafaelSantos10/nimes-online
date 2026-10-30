@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Container } from "react-bootstrap";
 import { GlobalContext } from "../Api/GlobalContext";
 import styles from "./Custom.module.css";
@@ -22,7 +22,7 @@ function VideoDescription({ visibility }) {
             </span>
           </div>
           <div>
-            <span styles={{ fontSize: ".875rem" }}>
+            <span style={{ fontSize: ".875rem" }}>
               {" "}
               {Global.animeReleaseYear}
             </span>
@@ -30,7 +30,7 @@ function VideoDescription({ visibility }) {
         </div>
 
         <h2>{Global.currentEpisodeTitle}</h2>
-        <h3> {Global.category_genres}</h3>
+        <h3> {Global.genres}</h3>
 
         <p>{` ${Global.description.substring(0, 424)}`}...</p>
       </Container>

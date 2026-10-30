@@ -1,3 +1,4 @@
+import { API_URL, IMAGE_URL } from "../../Api/config";
 import React from "react";
 import { Card, Col, Container, Ratio, Row } from "react-bootstrap";
 import { GlobalContext } from "../../Api/GlobalContext";
@@ -8,12 +9,12 @@ import styles from "./Custom.module.css";
 
 function Category() {
   const Global = React.useContext(GlobalContext);
-  const { request, data, loading } = useFetch();
+  const { request, data, loading, error } = useFetch();
 
   React.useEffect(() => {
     if (!Global.category) return;
 
-    request(`https://appanimeplus.tk/play-api.php?categoria=${Global.category}`, {
+    request(`${API_URL}?categoria=${Global.category}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -21,6 +22,7 @@ function Category() {
     });
   }, [Global.category, request]);
 
+  if (error) return <p role="alert" style={{ margin: "8rem 1rem 2rem" }}>{error}</p>;
   if (data === null && loading === null) return null;
 
   return (
@@ -48,7 +50,7 @@ function Category() {
                 <Card className={styles.cardCustom} variant="dark">
                   <Ratio aspectRatio="1x1">
                     <Card.Img
-                      src={`https://cdn.appanimeplus.tk/img/${data.category_image}`}
+                      src={`${IMAGE_URL}/${data.category_image}`}
                       alt={data.category_name}
                     />
                   </Ratio>
